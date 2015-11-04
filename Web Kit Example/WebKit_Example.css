@@ -1,0 +1,35 @@
+*,html {
+	margin:0;
+	padding:0;
+}
+body {
+	font:12px Verdana, Tahoma, sans-serif;
+	color:#777;
+	text-align:left;
+	background:#EEE;
+}
+.composition {      
+	width: 350px;
+	height: 350px;
+	margin-left: auto; 
+	margin-right: auto;
+}
+/* This is the class we use to display information about the loaded composition.
+   We set the border and color to display as if this is not a WebKit based browser. 
+   In this case we color these red to display an error message. */
+.info {
+	position:absolute;
+	left:10px;
+	top:10px;
+	margin:0px;
+	padding:5px;
+	
+	border: 1px dotted #A00;
+	color:#700;
+}	
+/* If this is a WebKit based browser we have injected the classname Webkit.
+   We can use this to overide the border and color */
+.WebKit .info {
+	border: 1px dotted #AAA; 
+	color:#777;
+}

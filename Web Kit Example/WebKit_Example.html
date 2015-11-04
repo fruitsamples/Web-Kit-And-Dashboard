@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script type="text/javascript">
+// Add the WebKit classname to the document for use in css
+var WebKit = function() {
+	var className=navigator.userAgent.indexOf('AppleWebKit/')!=-1?'WebKit':'';  
+	var h=document.getElementsByTagName('html')[0]; 
+	h.className += h.className?' '+className:className;
+}();
+// This function is called once the composition is loaded via the enclosing embed tag's onload attribute
+function updateInfo () {
+	var info;
+	var composition = document.embeds["Default"];
+	var compAttrs = composition.attributes;
+	var port;
+	var inputPorts = "";
+	var outputPorts = "";
+	var keys;
+	
+	// Create our information HTML
+	info =  "<h3>Composition Information</h3>\n";
+	
+	if(compAttrs.name)
+	info += "<p>Name: &quot;" + compAttrs.name + "&quot;</p>\n";
+	if(compAttrs.copyright)
+	info += "<p>Copyright: &quot;" + compAttrs.copyright + "&quot;</p>\n";
+	if(compAttrs.description)
+	info += "<p>Description: &quot;" + compAttrs.description + "&quot;</p>\n";
+	if(composition.inputKeys()) {
+		keys = composition.inputKeys();
+		for(var index in keys) {
+			port = composition.inputKeys()[index];
+			for(var key in compAttrs[port]) {
+				inputPorts += "<p>&nbsp;&nbsp;&nbsp;&nbsp;" + key + ": &quot;" + compAttrs[port][key] + "&quot;</p>\n";
+			}
+		}
+	}
+	if(composition.outputKeys()) {
+		keys = composition.outputKeys();
+		for(var key in keys) {
+			port = composition.outputKeys()[key];
+			for(var key in compAttrs[port]) {
+				outputPorts += "<p>&nbsp;&nbsp;&nbsp;&nbsp;" + key + ": &quot;" + compAttrs[port][key] + "&quot;</p>\n";
+			}
+		}
+	}
+	if(inputPorts != "") {
+		info += "<p>Input Ports:</p>\n";
+		info += inputPorts;
+	}
+	if(outputPorts != "") {
+		info += "<p>Output Ports:</p>\n";
+		info += outputPorts
+	}
+	
+	// Set the HTML with our infomation
+	document.getElementById("info").innerHTML = info;
+}
+
+</script>
+<style type="text/css" media="all">
+	@import "WebKit_Example.css";
+</style>
+<title>WebKit Example</title>
+</head>
+
+<body>
+	<!-- Create our div element which we will populate later with information about the composition.
+         If this is a WebKit based browser we will wait until the composition is loaded, otherwise
+         we will populate this with an error message.  See WebKit_Example.css for further info -->
+	<div id="info" class="info">
+	</div>
+
+	<div class="composition">
+		<!-- Embed the composition if this is a WebKit client, otherwise embed a pre-rendered image -->
+		<script type="text/javascript">
+			if (navigator.userAgent.indexOf('AppleWebKit/')!=-1) {
+				document.write('<embed src="./Default.qtz" width="350" height="350" above="true" autoplay="true" opaque="false" maxfps="30" name="Default" type="application/x-quartzcomposer" onload="updateInfo" />');
+			}
+			else {
+				var info;
+				info =  "<h3>This browser does not support Quartz Composer.</h3>\n";
+				info += "<h3>Please try a WebKit based browser such as Safari.";
+				document.getElementById("info").innerHTML = info;
+				document.write('<img src="./Default.png" width="350" height="350"');
+			}
+		</script>
+	</div>
+</body>
+</html>

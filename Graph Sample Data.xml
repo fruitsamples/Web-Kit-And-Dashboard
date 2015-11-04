@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cities>
+	<city>
+		<name>San Francisco</name>
+		<value>0.5</value>
+	</city>
+	<city>
+		<name>Los Angeles</name>
+		<value>0.2</value>
+	</city>
+	<city>
+		<name>New York</name>
+		<value>0.7</value>
+	</city>
+	<city>
+		<name>San Juan</name>
+		<value>0.38</value>
+	</city>
+</cities>
